@@ -1,9 +1,11 @@
 length = int(input())
 
 while length:
-    time, str = map(str, input().split())
-    int(time)
+    time, stra = map(str, input().split())
+    time = int(time)
     i = 0
-    while str[i]:
-        print(str[i]*time)
+    while i < len(stra):
+        print(stra[i]*time, end='')
+        i += 1
     length -= 1
+    print()
