@@ -1,4 +1,3 @@
-import math
 n = int(input())
 time = list(map(int, input().split()))
 y = []
