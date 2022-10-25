@@ -2,40 +2,36 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-def bfs(x, y) :
-    max = 1
-    global visited
-    global borad
-    queue = deque()
-    queue.append([x,y])
-    visited[x][y] = True
+def bfs(x,y):
+    val = 1
+    q = deque()
+    q.append([x,y])
 
-    while queue:
-        x, y = queue.popleft()
-
+    while q:
+        x,y = q.popleft()
+        
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if 0 <= nx < col and 0 <= ny < row:
-                if borad[nx][ny] == 1 and not visited[nx][ny]:
-                    visited[nx][ny] = True
-                    queue.append([nx,ny])
-                    max += 1
-    return max
+            if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 1:
+                val += 1
+                q.append([nx,ny])
+                graph[nx][ny] = 0
+    return val
 
-col, row = map(int,input().split())
-visited = [[False]* row for _ in range(col)]
-borad = [list(map(int,input().split())) for _ in range(col)]
+n, m = map(int,input().split())
+graph = [list(map(int,input().split())) for i in range(n)]
+cnt , max_val = 0, 0
+dx = [1,-1,0,0]
+dy = [0,0,1,-1]
 
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
-
-cnt , max_val = 0,0
-for i in range(col) :
-    for j in range(row) :
-        if borad[i][j] == 1 and not visited[i][j]:
+for i in range(n) :
+    for j in range(m) :
+        if graph[i][j] == 1:
+            graph[i][j] = 0
             cnt += 1
             max_val = max(max_val,bfs(i,j))
+
 print(cnt)
 print(max_val)
